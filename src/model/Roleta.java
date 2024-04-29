@@ -5,16 +5,26 @@ import java.util.Random;
 public class Roleta {
 
     private int numero;
+    private int qtdFaltante;
 
     public Roleta() {
-        this(0);
+        this(0, 0);
     }
 
-    public Roleta(int numero) {
+    public Roleta(int numero, int qtdFaltante) {
         this.numero = numero;
     }
+    
+    public int getQtdFaltante() {
+        return qtdFaltante;
+    }
 
-    public double getNumero() {
+    public void setQtdFaltante(int qtdFaltante) {
+        this.qtdFaltante = qtdFaltante;
+    }
+
+
+    public int getNumero() {
         return numero;
     }
 
@@ -22,8 +32,11 @@ public class Roleta {
         this.numero = numero;
     }
     
-    public void getRandom(int numero) {
-        
+    public int getRandom(int qtdFaltante) {
+        Random geradorNumero = new Random(getNumero());
+
+        int i = geradorNumero.nextInt(qtdFaltante);
+        return i;
     }
 
 }
