@@ -14,6 +14,7 @@ public class FrmRoleta extends javax.swing.JFrame {
 
     public FrmRoleta() {
         initComponents();
+        setLocationRelativeTo(null);
         this.botaoSortear.setEnabled(false); // iniciando o programa com os botoes de sortear e cancelar desativados
         this.botaoCancelar.setEnabled(false);
     }
@@ -22,7 +23,6 @@ public class FrmRoleta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         JTFqtd = new javax.swing.JTextField();
         botaoNovo = new javax.swing.JButton();
@@ -32,7 +32,8 @@ public class FrmRoleta extends javax.swing.JFrame {
         botaoFechar = new javax.swing.JButton();
         JLNumero = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        JTFlista = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        JTASaida = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bingo");
@@ -80,11 +81,9 @@ public class FrmRoleta extends javax.swing.JFrame {
 
         jLabel4.setText("Número sorteado");
 
-        JTFlista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JTFlistaActionPerformed(evt);
-            }
-        });
+        JTASaida.setColumns(20);
+        JTASaida.setRows(5);
+        jScrollPane2.setViewportView(JTASaida);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -107,14 +106,16 @@ public class FrmRoleta extends javax.swing.JFrame {
                         .addComponent(JTFqtd, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoNovo))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(botaoFechar)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(botaoSortear)
-                            .addGap(62, 62, 62)
-                            .addComponent(botaoCancelar)))
-                    .addComponent(JTFlista, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(botaoFechar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botaoSortear)
+                                .addGap(62, 62, 62)
+                                .addComponent(botaoCancelar))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,25 +125,25 @@ public class FrmRoleta extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(JTFqtd, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoNovo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JLNumero))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(82, 82, 82))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JTFlista, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(botaoSortear)
                             .addComponent(botaoCancelar))
                         .addGap(34, 34, 34)
                         .addComponent(botaoFechar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(JLNumero)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
-                        .addGap(82, 82, 82))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -181,14 +182,25 @@ public class FrmRoleta extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (!listaNumeros.isEmpty()) {
             Random geradorNumero = new Random();
+            int indice = 0;
             
-            int i = geradorNumero.nextInt(qtdFaltante);
+            if (listaNumeros.size() > 1) {
+                indice = geradorNumero.nextInt(qtdFaltante-1);
+            } else {
+                indice = geradorNumero.nextInt(qtdFaltante-1);
+            }
+            
             qtdFaltante--;
 
             ordem++;
-            JTFlista.setText(ordem + "º sorteado: " + listaNumeros.get(i).toString() + "\n");
-            JLNumero.setText(listaNumeros.get(i) + "");// o '+ ""' converte de numero para string
-            listaNumeros.remove(i);
+            JTASaida.append(ordem + "º sorteado: " + listaNumeros.get(indice).toString() + "\n");
+            JLNumero.setText(listaNumeros.get(indice) + "");// o '+ ""' converte de numero para string
+            listaNumeros.remove(indice);
+            
+            //debugando
+            System.out.println("lista:" +  listaNumeros);
+            System.out.println("qtdFaltante: " + qtdFaltante);
+            System.out.println("JLNumero: " + JLNumero.getText());
         } else {
             JOptionPane.showMessageDialog(null, "Não há mais números a serem sorteados");
             botaoSortear.setEnabled(false);
@@ -197,10 +209,6 @@ public class FrmRoleta extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_botaoSortearActionPerformed
-
-    private void JTFlistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFlistaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JTFlistaActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         // TODO add your handling code here:
@@ -246,7 +254,7 @@ public class FrmRoleta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLNumero;
-    private javax.swing.JTextField JTFlista;
+    private javax.swing.JTextArea JTASaida;
     private javax.swing.JTextField JTFqtd;
     private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton botaoFechar;
@@ -255,6 +263,6 @@ public class FrmRoleta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

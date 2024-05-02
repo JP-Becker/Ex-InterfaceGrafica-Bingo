@@ -32,11 +32,4 @@ public class Roleta {
         this.numero = numero;
     }
     
-    public int getRandom(int qtdFaltante) {
-        Random geradorNumero = new Random(getNumero());
-
-        int i = geradorNumero.nextInt(qtdFaltante);
-        return i;
-    }
-
 }
